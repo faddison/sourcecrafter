@@ -1,9 +1,9 @@
 package decorator;
 
-import metrics.IMetrics;
+import metrics.IMetricsCollection;
 import core.City;
 
 public interface IDecorator 
 {
-	City decorate(City city, IMetrics metrics);
+	City decorate(City city, IMetricsCollection metrics);
 }

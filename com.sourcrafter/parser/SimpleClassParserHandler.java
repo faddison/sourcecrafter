@@ -8,15 +8,23 @@ import org.xml.sax.helpers.DefaultHandler;
 
 import metrics.SimpleClassMetrics;
 
-public class SimpleClassParserHandler extends DefaultHandler {
+public class SimpleClassParserHandler extends DefaultHandler implements IDefaultHandler {
 
 	private ArrayList<SimpleClassMetrics> classes = new ArrayList<SimpleClassMetrics>();
 	private SimpleClassMetrics scm = new SimpleClassMetrics();
 
+	/* (non-Javadoc)
+	 * @see parser.IDefaultHandler#getClassMetrics()
+	 */
+	@Override
 	public ArrayList<SimpleClassMetrics> getClassMetrics() {
 		return classes;
 	}
 
+	/* (non-Javadoc)
+	 * @see parser.IDefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
+	 */
+	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 
 		if (qName.equalsIgnoreCase("CompilationUnit")) {
@@ -46,6 +54,10 @@ public class SimpleClassParserHandler extends DefaultHandler {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see parser.IDefaultHandler#endElement(java.lang.String, java.lang.String, java.lang.String)
+	 */
+	@Override
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
 		if (qName.equalsIgnoreCase("CompilationUnit")) {
@@ -54,6 +66,10 @@ public class SimpleClassParserHandler extends DefaultHandler {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see parser.IDefaultHandler#characters(char[], int, int)
+	 */
+	@Override
 	public void characters(char[] ch, int start, int length) {
 
 	}

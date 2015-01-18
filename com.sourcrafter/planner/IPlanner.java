@@ -1,9 +1,9 @@
 package planner;
 
-import metrics.IMetrics;
+import metrics.IMetricsCollection;
 import core.City;
 
 public interface IPlanner 
 {
-	City plan(City city, IMetrics metrics);
+	City plan(City city, IMetricsCollection metrics);
 }

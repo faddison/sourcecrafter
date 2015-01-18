@@ -1,8 +1,10 @@
 package parser;
 
-import metrics.IMetrics;
+import metrics.IMetricsCollection;
 
 public interface IParser 
 {
-	IMetrics parse(String rawMetricsData);
+	IMetricsCollection parse(String rawMetricsData);
+	boolean getShouldReadMetricsFromFile();
+	IDefaultHandler getDefaultHandler();
 }

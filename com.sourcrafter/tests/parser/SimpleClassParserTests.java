@@ -1,7 +1,11 @@
 package tests.parser;
 
 import static org.junit.Assert.*;
-import metrics.SimpleClassMetrics;
+
+import java.util.List;
+
+import metrics.IMetrics;
+import metrics.IMetricsCollection;
 
 import org.junit.Test;
 
@@ -9,31 +13,44 @@ import parser.SimpleClassParser;
 
 public class SimpleClassParserTests
 {
-	@Test
-	public void ParseTest_NullMetrics_ShouldReadFromFile_EmptyMetricsString()
+	@Test (expected=NullPointerException.class)
+	public void parseTest_nullMetrics_shouldReadFromFile_emptyMetricsString()
 	{
-		SimpleClassMetrics metrics = new SimpleClassParser(true).parse("");
+		IMetricsCollection metricsCollection = new SimpleClassParser(true).parse("");
+		List<? extends IMetrics> metrics = metricsCollection.getMetrics(); 
+		
 		assertEquals(metrics, null);
 	}
 	
-	@Test
-	public void ParseTest_NullMetrics_ShouldReadFromFile_NullMetricsString()
+	@Test (expected=NullPointerException.class)
+	public void parseTest_nullMetrics_shouldReadFromFile_nullMetricsString()
 	{
-		SimpleClassMetrics metrics = new SimpleClassParser(true).parse(null);
+		IMetricsCollection metricsCollection = new SimpleClassParser(true).parse(null);
+		List<? extends IMetrics> metrics = metricsCollection.getMetrics(); 
 		assertEquals(metrics, null);
 	}
 	
-	@Test
-	public void ParseTest_NullMetrics_ShouldNotReadFromFile_NullMetricsString()
+	@Test (expected=NullPointerException.class)
+	public void parseTest_nullMetrics_shouldNotReadFromFile_nullMetricsString()
 	{
-		SimpleClassMetrics metrics = new SimpleClassParser(false).parse(null);
+		IMetricsCollection metricsCollection = new SimpleClassParser(false).parse(null);
+		List<? extends IMetrics> metrics = metricsCollection.getMetrics(); 
 		assertEquals(metrics, null);
 	}
 	
-	@Test
-	public void ParseTest_NullMetrics_ShouldNotReadFromFile_EmptyMetricsString()
+	@Test (expected=NullPointerException.class)
+	public void parseTest_nullMetrics_shouldNotReadFromFile_emptyMetricsString()
 	{
-		SimpleClassMetrics metrics = new SimpleClassParser(false).parse("");
+		IMetricsCollection metricsCollection = new SimpleClassParser(false).parse("");
+		List<? extends IMetrics> metrics = metricsCollection.getMetrics(); 
+		assertEquals(metrics, null);
+	}
+	
+	//@Test
+	public void parseTest_sweetHomeMetrics_shouldReadFromFile_sweetHomeFilenameMetricsString()
+	{
+		IMetricsCollection metricsCollection = new SimpleClassParser(true).parse("sources/SweetHomeStructure.xml");
+		List<? extends IMetrics> metrics = metricsCollection.getMetrics(); 
 		assertEquals(metrics, null);
 	}
 

@@ -1,9 +1,9 @@
 package designer;
 
 import core.City;
-import metrics.IMetrics;
+import metrics.IMetricsCollection;
 
 public interface IDesigner 
 {
-	City design(IMetrics metrics);
+	City design(IMetricsCollection metrics);
 }

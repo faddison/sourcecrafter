@@ -1,54 +1,80 @@
 package parser;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import util.FileHelper;
+import metrics.IMetricsCollection;
 import metrics.SimpleClassMetrics;
+import metrics.SimpleClassMetricsCollection;
 
-public class SimpleClassParser extends AbstractParser
-{
-	private ArrayList<SimpleClassMetrics> classes = new ArrayList<SimpleClassMetrics>();
+public class SimpleClassParser implements IParser
+{	
+	private boolean shouldReadMetricsFromFile;
+	private IDefaultHandler parserHandler;
 	
-	public SimpleClassParser(boolean shouldReadMetricsFromFile)
+	public SimpleClassParser(IDefaultHandler parserHandler, boolean shouldReadMetricsFromFile)
 	{
-		super(shouldReadMetricsFromFile);
+		this.parserHandler = parserHandler;
+		this.shouldReadMetricsFromFile = shouldReadMetricsFromFile;
+	}
+	
+	@Override
+	public boolean getShouldReadMetricsFromFile()
+	{
+		return this.shouldReadMetricsFromFile;
 	}
 
 	@Override
-	public SimpleClassMetrics parse(String metrics)
+	public IMetricsCollection parse(String metrics)
 	{
-		if (shouldReadMetricsFromFile)
+		if (shouldReadMetricsFromFile && metrics != null)
 			metrics = FileHelper.readFile(metrics);
 		
 		return null;
 	}
-	
-	public ArrayList<SimpleClassMetrics> parseSimpleClassMetrics(String filename) {
 
+	@Override
+	public IDefaultHandler getDefaultHandler() 
+	{
+		return parserHandler;
+	}
+	
+	private IMetricsCollection parseSimpleClassMetrics(String metricsSource) 
+	{
+		List<SimpleClassMetrics> metricsList = new ArrayList<SimpleClassMetrics>();
 		SAXParserFactory factory = SAXParserFactory.newInstance();
-		try {
+		try 
+		{
 			SAXParser saxParser = factory.newSAXParser();
-			SimpleClassParserHandler handler = new SimpleClassParserHandler();
-			saxParser.parse(filename, handler);
-			classes = handler.getClassMetrics();
-			
-//			printMetrics();
-			
-		} catch (ParserConfigurationException e) {
+			InputSource inputSource = new InputSource( new StringReader( metricsSource ) );
+			saxParser.parse(inputSource, (DefaultHandler) parserHandler);
+			metricsList = parserHandler.getMetrics();
+		} 
+		catch (ParserConfigurationException e) 
+		{
 			e.printStackTrace();
-		} catch (SAXException e) {
+		} 
+		catch (SAXException e) 
+		{
 			e.printStackTrace();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 		
-		return classes;
+		return new SimpleClassMetricsCollection(metricsList);
 	}
 }

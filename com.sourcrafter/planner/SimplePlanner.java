@@ -1,12 +1,12 @@
 package planner;
 
-import metrics.IMetrics;
+import metrics.IMetricsCollection;
 import core.City;
 
 public class SimplePlanner implements IPlanner
 {
 	@Override
-	public City plan(City city, IMetrics metrics) 
+	public City plan(City city, IMetricsCollection metrics) 
 	{
 		return null;
 	}

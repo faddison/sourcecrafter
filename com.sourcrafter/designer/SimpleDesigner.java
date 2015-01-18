@@ -1,13 +1,13 @@
 package designer;
 
 import core.City;
-import metrics.IMetrics;
+import metrics.IMetricsCollection;
 
 public class SimpleDesigner implements IDesigner 
 {
 
 	@Override
-	public City design(IMetrics metrics)
+	public City design(IMetricsCollection metrics)
 	{
 		return null;
 	}
