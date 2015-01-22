@@ -1,7 +1,6 @@
 package parser;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +9,17 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
+import metrics.IMetrics;
+import metrics.IMetricsCollection;
+import metrics.MetricsCollection;
+import metrics.SimpleClassMetrics;
+import metrics.SimpleClassMetricsCollection;
+
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import util.FileHelper;
-import metrics.IMetricsCollection;
-import metrics.SimpleClassMetrics;
-import metrics.SimpleClassMetricsCollection;
 
 public class SimpleClassParser implements IParser
 {	
@@ -37,12 +39,12 @@ public class SimpleClassParser implements IParser
 	}
 
 	@Override
-	public IMetricsCollection parse(String metrics)
+	public IMetricsCollection parse(String metricsSource)
 	{
-		if (shouldReadMetricsFromFile && metrics != null)
-			metrics = FileHelper.readFile(metrics);
+		if (shouldReadMetricsFromFile && metricsSource != null)
+			metricsSource = FileHelper.readFile(metricsSource);
 		
-		return null;
+		return parseSimpleClassMetrics(metricsSource);
 	}
 
 	@Override
@@ -53,7 +55,7 @@ public class SimpleClassParser implements IParser
 	
 	private IMetricsCollection parseSimpleClassMetrics(String metricsSource) 
 	{
-		List<SimpleClassMetrics> metricsList = new ArrayList<SimpleClassMetrics>();
+		List<? extends IMetrics> metricsList = new ArrayList<SimpleClassMetrics>();
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		try 
 		{
