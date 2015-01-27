@@ -1,24 +1,26 @@
 package parser;
 
-import java.util.ArrayList;
+import metrics.EclipsePluginMetrics.EclipsePluginMetrics;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import metrics.SimpleClassMetric;
+public class EclipsePluginMetricsParserHandler extends DefaultHandler {
 
-public class SimpleClassParserHandler extends DefaultHandler 
-{
+	private EclipsePluginMetrics eclipsePluginMetrics;
 
-	private ArrayList<SimpleClassMetric> classes = new ArrayList<SimpleClassMetric>();
-	private SimpleClassMetric scm = new SimpleClassMetric();
-
+	public EclipsePluginMetricsParserHandler()
+	{
+		this.eclipsePluginMetrics = new EclipsePluginMetrics();
+	}	
+	
 	/* (non-Javadoc)
 	 * @see parser.IDefaultHandler#getClassMetrics()
 	 */
-	public ArrayList<SimpleClassMetric> getMetrics() {
-		return classes;
+	public EclipsePluginMetrics getEclipsePluginProjectMetrics() 
+	{
+		return eclipsePluginMetrics;
 	}
 
 	/* (non-Javadoc)
@@ -33,23 +35,23 @@ public class SimpleClassParserHandler extends DefaultHandler
 			String pName = attributes.getValue("handle");
 			String pName2 = pName.substring(pName.indexOf('<')+1,pName.indexOf('{'));
 
-			scm = new SimpleClassMetric();
-			scm.setClassName(name);	
-			scm.setPackageName(pName2);
+//			scm = new SimpleClassMetric();
+//			scm.setClassName(name);	
+//			scm.setPackageName(pName2);
 		}
 
 		if (qName.equalsIgnoreCase("Metric") && attributes.getValue("id").equals("NOM")) {
 
 			String str = attributes.getValue("value");
 			int numMethods = Integer.parseInt(str);
-			scm.setNumMethods(numMethods);
+//			scm.setNumMethods(numMethods);
 		}
 
 		if (qName.equalsIgnoreCase("Metric") && attributes.getValue("id").equals("NOF")) {
 
 			String str = attributes.getValue("value");
 			int numAttributes = Integer.parseInt(str);
-			scm.setNumAttributes(numAttributes);
+//			scm.setNumAttributes(numAttributes);
 		}	
 
 	}
@@ -61,7 +63,7 @@ public class SimpleClassParserHandler extends DefaultHandler
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 
 		if (qName.equalsIgnoreCase("CompilationUnit")) {
-			classes.add(scm);
+//			classes.add(scm);
 		}
 
 	}
@@ -73,4 +75,5 @@ public class SimpleClassParserHandler extends DefaultHandler
 	public void characters(char[] ch, int start, int length) {
 
 	}
+
 }

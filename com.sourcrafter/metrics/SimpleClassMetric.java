@@ -2,7 +2,7 @@ package metrics;
 
 import java.io.Serializable;
 
-public class SimpleClassMetrics implements IMetrics, Serializable
+public class SimpleClassMetric implements IMetric, Serializable
 {
 	private static final long serialVersionUID = 1L;
 
@@ -11,11 +11,11 @@ public class SimpleClassMetrics implements IMetrics, Serializable
 	private String className;
 	private String packageName;
 	
-	public SimpleClassMetrics() {
+	public SimpleClassMetric() {
 		
 	}
 	
-	public SimpleClassMetrics(String className, int numMethods, int numAttributes) {
+	public SimpleClassMetric(String className, int numMethods, int numAttributes) {
 		this.className = className;
 		this.numMethods = numMethods;
 		this.numAttributes = numAttributes;
