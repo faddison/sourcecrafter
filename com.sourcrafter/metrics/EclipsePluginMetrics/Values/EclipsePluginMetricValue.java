@@ -1,6 +1,7 @@
 package metrics.EclipsePluginMetrics.Values;
 
-public class EclipsePluginMetricValue 
+public abstract class EclipsePluginMetricValue 
 {
-	private double value;
+	protected double value;
+	protected String id;
 }
