@@ -1,8 +1,7 @@
 package metrics.EclipsePluginMetrics;
 
-import metrics.IMetric;
 
-public class EclipsePluginMetrics implements IMetric
+public class EclipsePluginMetrics
 {
 	private EclipsePluginProjectMetrics eclipsePluginProjectMetrics;
 }

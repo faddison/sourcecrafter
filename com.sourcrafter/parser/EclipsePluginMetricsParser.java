@@ -7,7 +7,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-import metrics.IMetric;
 import metrics.EclipsePluginMetrics.EclipsePluginMetrics;
 
 import org.xml.sax.InputSource;
@@ -15,16 +14,14 @@ import org.xml.sax.SAXException;
 
 import util.FileHelper;
 
-public class EclipsePluginMetricsParser implements IParser 
+public class EclipsePluginMetricsParser
 {
-	@Override
 	public boolean getShouldReadMetricsFromFile() 
 	{
 		return true;
 	}
 	
-	@Override
-	public IMetric parse(String metricsSource)
+	public EclipsePluginMetrics parse(String metricsSource)
 	{
 		if (getShouldReadMetricsFromFile() && metricsSource != null)
 			metricsSource = FileHelper.readFile(metricsSource);
