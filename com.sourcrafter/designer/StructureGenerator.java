@@ -88,6 +88,6 @@ public class StructureGenerator
 	
 	private boolean shouldGenerateHollowCubeNoBottom(int x, int y, int z, int dimension)
 	{
-		return ((x == 0 || x == dimension - 1 || z == 0 || z == dimension - 1) && y > 0)
+		return ((x == 0 || x == dimension - 1 || z == 0 || z == dimension - 1) && y > 0);
 	}
 }
